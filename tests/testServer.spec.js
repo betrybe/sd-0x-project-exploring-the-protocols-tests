@@ -93,7 +93,6 @@ describe.only('Responder o IP do client', () => {
     execToken.kill();
     execNgrok.kill();
     execNode.kill();
-    await browser.close();
   });
 
   it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
@@ -143,7 +142,6 @@ describe.only('Responder informações extraídas através do IP do client', () 
     execToken.kill();
     execNgrok.kill();
     execNode.kill();
-    await browser.close();
   });
 
   it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
