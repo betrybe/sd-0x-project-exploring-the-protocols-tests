@@ -112,6 +112,8 @@ describe('Responder o IP do client', () => {
     wait(2000);
     execNode.kill();
     wait(2000);
+
+    await browser.close();
   });
 });
 
@@ -164,6 +166,8 @@ describe('Responder informações extraídas através do IP do client', () => {
     wait(2000);
     execNode.kill();
     wait(2000);
+
+    await browser.close();
   });
 });
 
@@ -204,6 +208,8 @@ describe('Responder dados do dispositivo (client)', () => {
     wait(2000);
     execNode.kill();
     wait(2000);
+
+    await browser.close();
   });
 });
 
@@ -250,5 +256,7 @@ describe('Responder a request com os resources do Server', () => {
     wait(2000);
     execNode.kill();
     wait(2000);
+
+    await browser.close();
   });
 });
