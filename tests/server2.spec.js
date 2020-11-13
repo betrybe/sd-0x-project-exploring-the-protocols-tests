@@ -17,6 +17,15 @@ function wait(time) {
     }
   }
 
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
 
   describe('Responder informações extraídas através do IP do client', () => {
     let browser;
@@ -34,23 +43,26 @@ function wait(time) {
   
     afterEach(async () => {
       execToken.kill();
+      sleep(5000)
       execNgrok.kill();
+      sleep(5000)
       execNode.kill();
+      sleep(5000)
     });
   
     it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
   
   
       execToken.stdout.on('data', ()=>{ });
-    
+      sleep(5000)
       
       execNgrok.stdout.on('data', ()=>{ });
-  
+      sleep(5000)
    
       execNode.stdout.on('data', ()=>{ });
-  
+      sleep(5000)
       await page.goto(BASE_URL);
-  
+      sleep(5000)
       await page.waitForSelector('a[target="_blank"]');
       const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
       console.log(url)

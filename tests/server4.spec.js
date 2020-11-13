@@ -17,6 +17,15 @@ function wait(time) {
     }
   }
 
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
 describe('Responder a request com os resources do Server', () => {
     it('Validar se acessar o site vai listar as informações do sistema', async () => {
       browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
@@ -26,15 +35,15 @@ describe('Responder a request com os resources do Server', () => {
       const instructionsString = JSON.parse(instructions.toString());
       var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
       execToken.stdout.on('data', ()=>{ });
-  
+      sleep(5000)
       var execNgrok = execTerminal('./ngrok http 8080');
       execNgrok.stdout.on('data', ()=>{ });
-  
+      sleep(5000)
       var execNode = execTerminal('node src/index.js');
       execNode.stdout.on('data', ()=>{ });
-
+      sleep(5000)
       await page.goto(BASE_URL);
-      wait(2000);
+      sleep(5000)
   
       await page.waitForSelector('a[target="_blank"]');
       const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -54,10 +63,10 @@ describe('Responder a request com os resources do Server', () => {
       expect(textMemory).not.toBeNull();
   
       execToken.kill();
-      wait(2000);
+      sleep(5000)
       execNgrok.kill();
-      wait(2000);
+      sleep(5000)
       execNode.kill();
-      wait(2000);
+      sleep(5000)
     });
   });
