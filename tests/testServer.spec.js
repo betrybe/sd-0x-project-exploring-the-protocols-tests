@@ -210,7 +210,7 @@ describe('Responder dados do dispositivo (client)', () => {
   });
 });
 
-describe('Responder a request com os resources do Server', () => {
+describe.only('Responder a request com os resources do Server', () => {
   it('Validar se acessar o site vai listar as informações do sistema', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
@@ -220,7 +220,7 @@ describe('Responder a request com os resources do Server', () => {
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
     wait(3000);
-    var execNgrok = execTerminal('./ngrok http 8080 &');
+    var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
     execNgrok.stdout.on('data', ()=>{ });
     wait(3000);
     var execNode = execTerminal('node src/index.js');
