@@ -221,7 +221,7 @@ describe.only('Responder a request com os resources do Server', () => {
     execToken.stdout.on('data', ()=>{ });
     wait(3000);
     var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
-    execNgrok.stdout.on('data', ()=>{ });
+    execNgrok.stdout.on('data', (data)=>{ console.log(data)});
     wait(3000);
     var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
