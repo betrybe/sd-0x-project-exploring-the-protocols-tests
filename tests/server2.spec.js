@@ -73,5 +73,6 @@ function wait(time) {
       await ngrok.disconnect(url2); // stops one
       await ngrok.disconnect(); // stops all
       await ngrok.kill(); 
+      execNode.kill();
     });
   });

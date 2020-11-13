@@ -29,7 +29,7 @@ describe('Responder o IP do client', () => {
         const url2 = await ngrok.connect(8080);
          browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
          page = await browser.newPage();
-         
+
       execNode.stdout.on('data', ()=>{ });
   
       wait(2000);
@@ -50,5 +50,6 @@ describe('Responder o IP do client', () => {
       await ngrok.disconnect(url2); // stops one
       await ngrok.disconnect(); // stops all
       await ngrok.kill(); 
+      execNode.kill();
     });
   });
