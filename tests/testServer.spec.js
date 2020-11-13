@@ -169,7 +169,7 @@ describe('Responder informações extraídas através do IP do client', () => {
 
 describe.only('Responder dados do dispositivo (client)', () => {
   it('Será validado se que ao acessar a tela listou os dados do dispositivo', async () => {
-    browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: false });
+    browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
 
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
