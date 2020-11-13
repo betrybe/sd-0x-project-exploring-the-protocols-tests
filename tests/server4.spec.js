@@ -37,10 +37,10 @@ describe('Responder a request com os resources do Server', () => {
       execToken.stdout.on('data', ()=>{ });
       sleep(5000)
       var execNgrok = execTerminal('./ngrok http 8080');
-      execNgrok.stdout.on('data', ()=>{ });
+      execNgrok.stdout.on('data', (data)=>{ console.info(data)});
       sleep(5000)
       var execNode = execTerminal('node src/index.js');
-      execNode.stdout.on('data', ()=>{ });
+      execNode.stdout.on('data', (data)=>{ console.info(data)});
       sleep(5000)
       await page.goto(BASE_URL);
       sleep(5000)
