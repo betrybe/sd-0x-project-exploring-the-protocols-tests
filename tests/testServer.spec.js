@@ -79,7 +79,11 @@ describe.only('Responder o IP do client', () => {
 
   let browser;
   let page;
-
+  const instructions = fs.readFileSync('./instruction.json', 'utf8');
+  const instructionsString = JSON.parse(instructions.toString());
+  let execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
+  let execNgrok = execTerminal('./ngrok http 8080');
+  let execNode = execTerminal('node src/index.js');
   beforeEach(async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
@@ -93,15 +97,14 @@ describe.only('Responder o IP do client', () => {
   });
 
   it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
-    const instructions = fs.readFileSync('./instruction.json', 'utf8');
-    const instructionsString = JSON.parse(instructions.toString());
-    var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
+
+    
     execToken.stdout.on('data', ()=>{ });
 
-    var execNgrok = execTerminal('./ngrok http 8080');
+    
     execNgrok.stdout.on('data', ()=>{ });
 
-    var execNode = execTerminal('node src/index.js');
+    
     execNode.stdout.on('data', ()=>{ });
 
     wait(3000);
@@ -125,6 +128,11 @@ describe.only('Responder o IP do client', () => {
 describe.only('Responder informações extraídas através do IP do client', () => {
   let browser;
   let page;
+  const instructions = fs.readFileSync('./instruction.json', 'utf8');
+  const instructionsString = JSON.parse(instructions.toString());
+  var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
+  var execNgrok = execTerminal('./ngrok http 8080');
+  var execNode = execTerminal('node src/index.js');
 
   beforeEach(async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
@@ -140,15 +148,13 @@ describe.only('Responder informações extraídas através do IP do client', () 
 
   it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
 
-    const instructions = fs.readFileSync('./instruction.json', 'utf8');
-    const instructionsString = JSON.parse(instructions.toString());
-    var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
+
     execToken.stdout.on('data', ()=>{ });
   
-    var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
+    
     execNgrok.stdout.on('data', ()=>{ });
 
-    var execNode = execTerminal('node src/index.js');
+ 
     execNode.stdout.on('data', ()=>{ });
 
     wait(3000);
