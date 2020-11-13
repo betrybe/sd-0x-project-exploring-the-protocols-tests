@@ -124,13 +124,13 @@ describe.only('Responder informações extraídas através do IP do client', () 
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
-    wait(3000);
+  
     var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
     execNgrok.stdout.on('data', ()=>{ });
-    wait(3000);
+
     var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
-    wait(3000);
+
     await page.goto(BASE_URL);
     wait(2000);
 
