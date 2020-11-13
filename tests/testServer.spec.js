@@ -130,6 +130,7 @@ describe.only('Responder informações extraídas através do IP do client', () 
     var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
 
+    wait(3000);
     await page.goto(BASE_URL);
 
     await page.waitForSelector('a[target="_blank"]');
