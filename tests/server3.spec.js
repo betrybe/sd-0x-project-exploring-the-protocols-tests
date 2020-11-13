@@ -1,7 +1,7 @@
+const ngrok = require('ngrok');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 var execTerminal = require('child_process').exec, child;
-var spawn = require('child_process').spawn;
 
 const BASE_URL = 'http://localhost:4040/inspect/http';
 
@@ -32,40 +32,24 @@ function wait(time) {
     let page;
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
     const instructionsString = JSON.parse(instructions.toString());
-    //var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
-    //var execNgrok = execTerminal('./ngrok http 8080');
-    //var execNode = execTerminal('node src/index.js');
+     
+    await ngrok.authtoken(instructionsString.token);
+    const url2 = await ngrok.connect(8080);
 
-    var execToken = spawn('./ngrok', [`authtoken ${instructionsString.token}`], {detached: true});
-var execNgrok = spawn('./ngrok', ['http', '8080'], {detached: true});
-var execNode = spawn('node', ['src/index.js'], {detached: true});
-  
+    var execNode = execTerminal('node src/index.js');
+
     beforeEach(async () => {
       browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
       page = await browser.newPage();
     });
   
     afterEach(async () => {
-        process.kill(-execToken.pid);
-        //execToken.kill();
-        sleep(20000)
-  
-        process.kill(-execNode.pid);
-        //execNode.kill();
-        sleep(20000)
-        process.kill(-execNgrok.pid);
-        //execNgrok.kill();
-        sleep(20000)
+      await ngrok.disconnect(url2); // stops one
+      await ngrok.disconnect(); // stops all
+      await ngrok.kill(); 
     });
 
     it('Será validado se que ao acessar a tela listou os dados do dispositivo', async () => {
-
-
-      execToken.stdout.on('data', ()=>{ });
-      sleep(20000)
-  
-      execNgrok.stdout.on('data', ()=>{ });
-      sleep(20000)
       execNode.stdout.on('data', ()=>{ });
       sleep(20000)
       await page.goto(BASE_URL);
