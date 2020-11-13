@@ -129,7 +129,7 @@ describe('Responder informações extraídas através do IP do client', () => {
     var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
     wait(3000);
-    var execNode = execTerminal('node src/index.js &');
+    var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
     wait(3000);
     await page.goto(BASE_URL);
@@ -182,7 +182,7 @@ describe('Responder dados do dispositivo (client)', () => {
     var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
     wait(3000);
-    var execNode = execTerminal('node src/index.js &');
+    var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
     wait(3000);
     await page.goto(BASE_URL);
@@ -223,7 +223,7 @@ describe('Responder a request com os resources do Server', () => {
     var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
     wait(3000);
-    var execNode = execTerminal('node src/index.js &');
+    var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
     wait(3000);
     await page.goto(BASE_URL);
