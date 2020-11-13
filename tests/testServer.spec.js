@@ -84,16 +84,15 @@ describe('Responder o IP do client', () => {
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
-
-    var execNgrok = execTerminal('./ngrok http 8080');
+    wait(3000);
+    var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
-
-    var execNode = execTerminal('node src/index.js');
+    wait(3000);
+    var execNode = execTerminal('node src/index.js &');
     execNode.stdout.on('data', ()=>{ });
-
-    wait(2000);
+    wait(3000);
     await page.goto(BASE_URL);
-    wait(2000);
+    wait(3000);
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -107,11 +106,11 @@ describe('Responder o IP do client', () => {
     expect(textIp).not.toBeNull();
 
     execToken.kill();
-    wait(2000);
+    wait(3000);
     execNgrok.kill();
-    wait(2000);
+    wait(3000);
     execNode.kill();
-    wait(2000);
+    wait(3000);
 
     await browser.close();
   });
@@ -126,16 +125,15 @@ describe('Responder informações extraídas através do IP do client', () => {
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
-
-    var execNgrok = execTerminal('./ngrok http 8080');
+    wait(3000);
+    var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
-
-    var execNode = execTerminal('node src/index.js');
+    wait(3000);
+    var execNode = execTerminal('node src/index.js &');
     execNode.stdout.on('data', ()=>{ });
-
-    wait(2000);
+    wait(3000);
     await page.goto(BASE_URL);
-    wait(2000);
+    wait(3000);
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -161,11 +159,11 @@ describe('Responder informações extraídas através do IP do client', () => {
     expect(textCompany).not.toBeNull();
 
     execToken.kill();
-    wait(2000);
+    wait(3000);
     execNgrok.kill();
-    wait(2000);
+    wait(3000);
     execNode.kill();
-    wait(2000);
+    wait(3000);
 
     await browser.close();
   });
@@ -180,16 +178,15 @@ describe('Responder dados do dispositivo (client)', () => {
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
-
-    var execNgrok = execTerminal('./ngrok http 8080');
+    wait(3000);
+    var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
-
-    var execNode = execTerminal('node src/index.js');
+    wait(3000);
+    var execNode = execTerminal('node src/index.js &');
     execNode.stdout.on('data', ()=>{ });
-
-    wait(2000);
+    wait(3000);
     await page.goto(BASE_URL);
-    wait(2000);
+    wait(3000);
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -203,11 +200,11 @@ describe('Responder dados do dispositivo (client)', () => {
     expect(deviceText).not.toBeNull();
 
     execToken.kill();
-    wait(2000);
+    wait(3000);
     execNgrok.kill();
-    wait(2000);
+    wait(3000);
     execNode.kill();
-    wait(2000);
+    wait(3000);
 
     await browser.close();
   });
@@ -222,16 +219,15 @@ describe('Responder a request com os resources do Server', () => {
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
-
-    var execNgrok = execTerminal('./ngrok http 8080');
+    wait(3000);
+    var execNgrok = execTerminal('./ngrok http 8080 &');
     execNgrok.stdout.on('data', ()=>{ });
-
-    var execNode = execTerminal('node src/index.js');
+    wait(3000);
+    var execNode = execTerminal('node src/index.js &');
     execNode.stdout.on('data', ()=>{ });
-
-    wait(2000);
+    wait(3000);
     await page.goto(BASE_URL);
-    wait(2000);
+    wait(3000);
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -251,11 +247,11 @@ describe('Responder a request com os resources do Server', () => {
     expect(textMemory).not.toBeNull();
 
     execToken.kill();
-    wait(2000);
+    wait(3000);
     execNgrok.kill();
-    wait(2000);
+    wait(3000);
     execNode.kill();
-    wait(2000);
+    wait(3000);
 
     await browser.close();
   });
