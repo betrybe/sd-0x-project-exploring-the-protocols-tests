@@ -39,11 +39,10 @@ describe('Responder o IP do client', () => {
 
 
 
-var execToken = spawn(`./ngrok authtoken ${instructionsString.token}`, {detached: true});
-var execNgrok = spawn('./ngrok http 8080', {detached: true});
-var execNode = spawn('node src/index.js', {detached: true});
+   var execToken = spawn('./ngrok', [`authtoken ${instructionsString.token}`], {detached: true});
+   var execNgrok = spawn('./ngrok', ['http', '8080'], {detached: true});
+   var execNode = spawn('node', ['src/index.js'], {detached: true});
 
-process.kill(-child.pid);
     beforeEach(async () => {
       browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
       page = await browser.newPage();
