@@ -76,10 +76,23 @@ describe('Configurar a request HTTPS para enviar o endereço IP', () => {
 });
 
 describe.only('Responder o IP do client', () => {
-  it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
+
+  let browser;
+  let page;
+
+  beforeEach(async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
+  });
 
+  afterEach(async () => {
+    execToken.kill();
+    execNgrok.kill();
+    execNode.kill();
+    await browser.close();
+  });
+
+  it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
@@ -96,7 +109,7 @@ describe.only('Responder o IP do client', () => {
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
-
+    console.log(url)
     newPage = await browser.newPage();
 
     console.log(url[1]);
@@ -106,17 +119,26 @@ describe.only('Responder o IP do client', () => {
 
     const textIp = await newPage.$$eval(dataTestid('ip'), (nodes) => nodes.map((n) => n.innerText));
     expect(textIp).not.toBeNull();
-
-    execToken.kill();
-    execNgrok.kill();
-    execNode.kill();
   });
 });
 
 describe.only('Responder informações extraídas através do IP do client', () => {
-  it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
+  let browser;
+  let page;
+
+  beforeEach(async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
+  });
+
+  afterEach(async () => {
+    execToken.kill();
+    execNgrok.kill();
+    execNode.kill();
+    await browser.close();
+  });
+
+  it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
 
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
     const instructionsString = JSON.parse(instructions.toString());
@@ -134,7 +156,7 @@ describe.only('Responder informações extraídas através do IP do client', () 
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
-
+    console.log(url)
     newPage = await browser.newPage();
 
     console.log(url[1]);
@@ -156,13 +178,6 @@ describe.only('Responder informações extraídas através do IP do client', () 
     expect(textRegion).not.toBeNull();
     expect(textCountry).not.toBeNull();
     expect(textCompany).not.toBeNull();
-
-    execToken.kill();
-
-    execNgrok.kill();
-
-    execNode.kill();
-
   });
 });
 
