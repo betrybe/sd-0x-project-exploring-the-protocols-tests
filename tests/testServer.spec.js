@@ -207,7 +207,7 @@ describe.only('Responder dados do dispositivo (client)', () => {
   });
 });
 
-describe('Responder a request com os resources do Server', () => {
+describe.only('Responder a request com os resources do Server', () => {
   it('Validar se acessar o site vai listar as informações do sistema', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
