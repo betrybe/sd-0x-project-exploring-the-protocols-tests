@@ -2,7 +2,7 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 var execTerminal = require('child_process').exec, child;
 
-const BASE_URL = 'http://localhost:4040/inspect/http';
+const BASE_URL = 'http://localhost:4041/inspect/http';
 
 function dataTestid(name) {
   return `[data-testid=${name}]`;
