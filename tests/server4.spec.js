@@ -33,12 +33,13 @@ describe('Responder a request com os resources do Server', () => {
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
     const instructionsString = JSON.parse(instructions.toString());
      
-    await ngrok.authtoken(instructionsString.token);
-    const url2 = await ngrok.connect(8080);
+
 
     var execNode = execTerminal('node src/index.js');
 
     beforeEach(async () => {
+        await ngrok.authtoken(instructionsString.token);
+        const url2 = await ngrok.connect(8080);
       browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
       page = await browser.newPage();
     });
