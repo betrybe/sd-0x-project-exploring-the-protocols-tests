@@ -43,34 +43,35 @@ function wait(time) {
   
     afterEach(async () => {
       execToken.kill();
-      sleep(5000)
+      sleep(10000)
       execNgrok.kill();
-      sleep(5000)
+      sleep(10000)
       execNode.kill();
-      sleep(5000)
+      sleep(10000)
     });
   
     it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
   
   
       execToken.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       
       execNgrok.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
    
       execNode.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       await page.goto(BASE_URL);
-      sleep(5000)
+      sleep(10000)
       await page.waitForSelector('a[target="_blank"]');
       const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
       console.log(url)
       newPage = await browser.newPage();
-  
+      sleep(10000)
       console.log(url[1]);
       newPage.goto(url[1]);
       console.log(url[1]);
+      sleep(10000)
       await newPage.waitForSelector(dataTestid('city'));
       const textCity = await newPage.$$eval(dataTestid('city'), (nodes) => nodes.map((n) => n.innerText));
       await newPage.waitForSelector(dataTestid('postal_code'));

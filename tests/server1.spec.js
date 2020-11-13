@@ -42,26 +42,26 @@ describe('Responder o IP do client', () => {
   
     afterEach(async () => {
       execToken.kill();
-      sleep(5000)
+      sleep(10000)
       execNgrok.kill();
-      sleep(5000)
+      sleep(10000)
       execNode.kill();
-      sleep(5000)
+      sleep(10000)
     });
   
     it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
   
       
       execToken.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       
       execNgrok.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       
       execNode.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       await page.goto(BASE_URL);
-      sleep(5000)
+      sleep(10000)
       await page.waitForSelector('a[target="_blank"]');
       const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
       console.log(url)
@@ -70,6 +70,7 @@ describe('Responder o IP do client', () => {
       console.log(url[1]);
       newPage.goto(url[1]);
       console.log(url[1]);
+      sleep(10000)
       await newPage.waitForSelector(dataTestid('ip'));
   
       const textIp = await newPage.$$eval(dataTestid('ip'), (nodes) => nodes.map((n) => n.innerText));

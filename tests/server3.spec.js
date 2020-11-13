@@ -35,34 +35,36 @@ function wait(time) {
       const instructionsString = JSON.parse(instructions.toString());
       var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
       execToken.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
       execNgrok.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       var execNode = execTerminal('node src/index.js');
       execNode.stdout.on('data', ()=>{ });
-      sleep(5000)
+      sleep(10000)
       await page.goto(BASE_URL);
-      sleep(5000)
+      sleep(10000)
   
       await page.waitForSelector('a[target="_blank"]');
+      sleep(10000)
       const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
-  
+      sleep(10000)
       newPage = await browser.newPage();
-  
+      sleep(10000)
       console.log(url[1]);
       newPage.goto(url[1]);
       console.log(url[1]);
+      sleep(10000)
       await newPage.waitForSelector(dataTestid('device'));
       const deviceText = await newPage.$$eval(dataTestid('device'), (nodes) => nodes.map((n) => n.innerText));
   
       expect(deviceText).not.toBeNull();
   
       execToken.kill();
-      sleep(5000)
+      sleep(10000)
       execNgrok.kill();
-      sleep(5000)
+      sleep(10000)
       execNode.kill();
-      sleep(5000)
+      sleep(10000)
     });
   });
