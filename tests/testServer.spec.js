@@ -115,7 +115,7 @@ describe('Responder o IP do client', () => {
   });
 });
 
-describe('Responder informações extraídas através do IP do client', () => {
+describe.only('Responder informações extraídas através do IP do client', () => {
   it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
@@ -125,7 +125,7 @@ describe('Responder informações extraídas através do IP do client', () => {
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
 
-    var execNgrok = execTerminal('./ngrok http 8080');
+    var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
     execNgrok.stdout.on('data', ()=>{ });
 
     var execNode = execTerminal('node src/index.js');
@@ -207,7 +207,7 @@ describe.only('Responder dados do dispositivo (client)', () => {
   });
 });
 
-describe.only('Responder a request com os resources do Server', () => {
+describe('Responder a request com os resources do Server', () => {
   it('Validar se acessar o site vai listar as informações do sistema', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
