@@ -75,7 +75,7 @@ describe('Configurar a request HTTPS para enviar o endereço IP', () => {
   });
 });
 
-describe('Responder o IP do client', () => {
+describe.only('Responder o IP do client', () => {
   it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
@@ -91,9 +91,8 @@ describe('Responder o IP do client', () => {
     var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
 
-    wait(2000);
+    wait(3000);
     await page.goto(BASE_URL);
-    wait(2000);
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -107,9 +106,7 @@ describe('Responder o IP do client', () => {
     expect(textIp).not.toBeNull();
 
     execToken.kill();
-    wait(3000);
     execNgrok.kill();
-    wait(3000);
     execNode.kill();
   });
 });
