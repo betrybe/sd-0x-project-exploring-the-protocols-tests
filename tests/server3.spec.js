@@ -28,29 +28,28 @@ function wait(time) {
   }
 
   describe('Responder dados do dispositivo (client)', () => {
-    let browser;
-    let page;
-    const instructions = fs.readFileSync('./instruction.json', 'utf8');
-    const instructionsString = JSON.parse(instructions.toString());
-    let url2 = '';
-
-
-    var execNode = execTerminal('node src/index.js');
 
     beforeEach(async () => {
-        await ngrok.authtoken(instructionsString.token);
-         url2 = await ngrok.connect(8080);
-      browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
-      page = await browser.newPage();
+
     });
   
     afterEach(async () => {
-      await ngrok.disconnect(url2); // stops one
-      await ngrok.disconnect(); // stops all
-      await ngrok.kill(); 
+ 
     });
 
     it('Será validado se que ao acessar a tela listou os dados do dispositivo', async () => {
+
+        const instructions = fs.readFileSync('./instruction.json', 'utf8');
+        const instructionsString = JSON.parse(instructions.toString());
+
+    
+    
+        var execNode = execTerminal('node src/index.js');
+    
+        await ngrok.authtoken(instructionsString.token);
+        const url2 = await ngrok.connect(8080);
+     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
+     page = await browser.newPage();
       execNode.stdout.on('data', ()=>{ });
       sleep(20000)
       await page.goto(BASE_URL);
@@ -70,5 +69,9 @@ function wait(time) {
       const deviceText = await newPage.$$eval(dataTestid('device'), (nodes) => nodes.map((n) => n.innerText));
   
       expect(deviceText).not.toBeNull();
+
+      await ngrok.disconnect(url2); // stops one
+      await ngrok.disconnect(); // stops all
+      await ngrok.kill(); 
     });
   });

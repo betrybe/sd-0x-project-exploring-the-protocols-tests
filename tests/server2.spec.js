@@ -29,29 +29,17 @@ function wait(time) {
 
 
   describe('Responder informações extraídas através do IP do client', () => {
-    let browser;
-    let page;
-    const instructions = fs.readFileSync('./instruction.json', 'utf8');
-    const instructionsString = JSON.parse(instructions.toString());
-    let url2 = '';
-
-
-    var execNode = execTerminal('node src/index.js');
-
-    beforeEach(async () => {
-      await ngrok.authtoken(instructionsString.token);
-       url2 = await ngrok.connect(8080);
-      browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
-      page = await browser.newPage();
-    });
-  
-    afterEach(async () => {
-      await ngrok.disconnect(url2); // stops one
-      await ngrok.disconnect(); // stops all
-      await ngrok.kill(); 
-    });
   
     it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => { 
+        const instructions = fs.readFileSync('./instruction.json', 'utf8');
+        const instructionsString = JSON.parse(instructions.toString());
+
+        await ngrok.authtoken(instructionsString.token);
+        const url2 = await ngrok.connect(8080);
+       browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
+       page = await browser.newPage();
+    
+        var execNode = execTerminal('node src/index.js');
       execNode.stdout.on('data', ()=>{ });
       sleep(20000)
       await page.goto(BASE_URL);
@@ -81,5 +69,9 @@ function wait(time) {
       expect(textRegion).not.toBeNull();
       expect(textCountry).not.toBeNull();
       expect(textCompany).not.toBeNull();
+
+      await ngrok.disconnect(url2); // stops one
+      await ngrok.disconnect(); // stops all
+      await ngrok.kill(); 
     });
   });
