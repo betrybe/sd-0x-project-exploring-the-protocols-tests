@@ -75,7 +75,7 @@ describe('Configurar a request HTTPS para enviar o endereço IP', () => {
   });
 });
 
-describe('Responder o IP do client', () => {
+describe.only('Responder o IP do client', () => {
   it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
@@ -107,11 +107,11 @@ describe('Responder o IP do client', () => {
     expect(textIp).not.toBeNull();
 
     execToken.kill();
-    wait(2000);
+    wait(3000);
     execNgrok.kill();
-    wait(2000);
+    wait(3000);
     execNode.kill();
-    wait(2000);
+    wait(3000);
   });
 });
 
@@ -124,14 +124,13 @@ describe.only('Responder informações extraídas através do IP do client', () 
     const instructionsString = JSON.parse(instructions.toString());
     var execToken = execTerminal(`./ngrok authtoken ${instructionsString.token}`);
     execToken.stdout.on('data', ()=>{ });
-
+    wait(3000);
     var execNgrok = execTerminal('./ngrok http 8080 --log="stdout"');
     execNgrok.stdout.on('data', ()=>{ });
-
+    wait(3000);
     var execNode = execTerminal('node src/index.js');
     execNode.stdout.on('data', ()=>{ });
-
-    wait(2000);
+    wait(3000);
     await page.goto(BASE_URL);
     wait(2000);
 
@@ -167,7 +166,7 @@ describe.only('Responder informações extraídas através do IP do client', () 
   });
 });
 
-describe.only('Responder dados do dispositivo (client)', () => {
+describe('Responder dados do dispositivo (client)', () => {
   it('Será validado se que ao acessar a tela listou os dados do dispositivo', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
