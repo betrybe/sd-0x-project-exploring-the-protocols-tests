@@ -99,7 +99,9 @@ describe.only('Responder o IP do client', () => {
 
     newPage = await browser.newPage();
 
+    console.log(url[1]);
     newPage.goto(url[1]);
+    console.log(url[1]);
     await newPage.waitForSelector(dataTestid('ip'));
 
     const textIp = await newPage.$$eval(dataTestid('ip'), (nodes) => nodes.map((n) => n.innerText));
@@ -135,7 +137,9 @@ describe.only('Responder informações extraídas através do IP do client', () 
 
     newPage = await browser.newPage();
 
+    console.log(url[1]);
     newPage.goto(url[1]);
+    console.log(url[1]);
     await newPage.waitForSelector(dataTestid('city'));
     const textCity = await newPage.$$eval(dataTestid('city'), (nodes) => nodes.map((n) => n.innerText));
     await newPage.waitForSelector(dataTestid('postal_code'));
@@ -187,7 +191,9 @@ describe('Responder dados do dispositivo (client)', () => {
 
     newPage = await browser.newPage();
 
+    console.log(url[1]);
     newPage.goto(url[1]);
+    console.log(url[1]);
     await newPage.waitForSelector(dataTestid('device'));
     const deviceText = await newPage.$$eval(dataTestid('device'), (nodes) => nodes.map((n) => n.innerText));
 
