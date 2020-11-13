@@ -49,7 +49,6 @@ function wait(time) {
    
       execNode.stdout.on('data', ()=>{ });
   
-      wait(3000);
       await page.goto(BASE_URL);
   
       await page.waitForSelector('a[target="_blank"]');

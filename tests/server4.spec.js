@@ -16,7 +16,7 @@ function wait(time) {
       }
     }
   }
-  
+
 describe('Responder a request com os resources do Server', () => {
     it('Validar se acessar o site vai listar as informações do sistema', async () => {
       browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
@@ -32,8 +32,7 @@ describe('Responder a request com os resources do Server', () => {
   
       var execNode = execTerminal('node src/index.js');
       execNode.stdout.on('data', ()=>{ });
-  
-      wait(2000);
+
       await page.goto(BASE_URL);
       wait(2000);
   

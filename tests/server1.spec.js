@@ -16,7 +16,7 @@ function wait(time) {
       }
     }
   }
-  
+
 describe('Responder o IP do client', () => {
 
     let browser;
@@ -48,7 +48,6 @@ describe('Responder o IP do client', () => {
       
       execNode.stdout.on('data', ()=>{ });
   
-      wait(3000);
       await page.goto(BASE_URL);
   
       await page.waitForSelector('a[target="_blank"]');

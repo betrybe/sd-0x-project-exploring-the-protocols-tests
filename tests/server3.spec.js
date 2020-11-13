@@ -33,7 +33,6 @@ function wait(time) {
       var execNode = execTerminal('node src/index.js');
       execNode.stdout.on('data', ()=>{ });
   
-      wait(2000);
       await page.goto(BASE_URL);
       wait(2000);
   
