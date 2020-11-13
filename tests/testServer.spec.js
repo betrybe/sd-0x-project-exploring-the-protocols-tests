@@ -75,7 +75,7 @@ describe('Configurar a request HTTPS para enviar o endereço IP', () => {
   });
 });
 
-describe.only('Responder o IP do client', () => {
+describe('Responder o IP do client', () => {
   it('Será validado que ao acessar a url sera possível visualizar o ip do client', async () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1920,1080'], headless: true });
     page = await browser.newPage();
