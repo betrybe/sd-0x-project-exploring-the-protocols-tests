@@ -111,7 +111,6 @@ describe('Responder o IP do client', () => {
     execNgrok.kill();
     wait(3000);
     execNode.kill();
-    wait(3000);
   });
 });
 
@@ -132,7 +131,6 @@ describe.only('Responder informações extraídas através do IP do client', () 
     execNode.stdout.on('data', ()=>{ });
 
     await page.goto(BASE_URL);
-    wait(2000);
 
     await page.waitForSelector('a[target="_blank"]');
     const url =  await page.$$eval('a[target="_blank"]', (nodes) => nodes.map((n) => n.innerText));
@@ -158,11 +156,11 @@ describe.only('Responder informações extraídas através do IP do client', () 
     expect(textCompany).not.toBeNull();
 
     execToken.kill();
-    wait(2000);
+
     execNgrok.kill();
-    wait(2000);
+
     execNode.kill();
-    wait(2000);
+
   });
 });
 
